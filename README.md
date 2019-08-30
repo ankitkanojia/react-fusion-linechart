@@ -1,68 +1,212 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Implement Simple Line fusion chart with react app
+FusionCharts is a JavaScript charting library which provides more than 95 charts and 2,000 maps which can be use full in mobile and web applications.
 
-## Available Scripts
+## Official Links
+  - Website: [https://www.fusioncharts.com](https://www.fusioncharts.com)
+  - NPM Package: [https://www.npmjs.com/package/fusioncharts](https://www.npmjs.com/package/fusioncharts)
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+**Note:** [NPM](https://www.npmjs.com) or [Yarn](https://yarnpkg.com/lang/en) must be installed globally on your local pc.
+ - See [npm documentation](https://docs.npmjs.com/) to know more about npm in detail.
+ - See [yarn documentation](https://yarnpkg.com/en/docs) to know more about yarn in detail.
+ 
+## Installation Fusion Chart Library
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Note](#): In demo for designing purpose we used the simple [bootstrap](https://www.npmjs.com/package/bootstrap) library.
+ 
+We will use `react-fusioncharts` component to integrate fusion chart functionality.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+**Install from NPM or from Yarn**
+ ```
+npm install --save react-fusioncharts
 
-### `npm test`
+or
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+yarn add react-fusioncharts
+```
 
-### `npm run build`
+### Usage
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- create react app using your specific app name in desire folder path `create-react-app`
+- once you create the react app successfully there will be `app.js` file lies in `src` folder.
+- now we need to import `react-fusioncharts` and FusionCharts in your `app.js` file
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```
+import React, {Component} from 'react';
+import FusionCharts from 'fusioncharts';
+import Charts from 'fusioncharts/fusioncharts.charts';
+import ReactFC from 'react-fusioncharts';
+import './index.css';
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
+```
 
-### `npm run eject`
+Note: This way of import will not work in IE11 and below.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Configuration setting for chart
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+        type: "line",
+        width: '100%',
+        height: 350,
+        dataFormat: 'json',
+        dataSource: {
+            chart: {
+                caption: "Revenue Over Time($k)",
+                palettecolors: "f2726f",
+                yaxisname: "Month",
+                xaxisname: "Revenue",
+                subcaption: "[Year 2019]",
+                numbersuffix: "k",
+                showBorder: "1",
+                borderColor: "#ccc",
+                bgColor: "#FFFFFF",
+                theme: "fusion",
+                //Tooltip customization
+                toolTipBorderColor: "#666666",
+                toolTipBgColor: "#efefef",
+                toolTipBgAlpha: "80",
+                showToolTipShadow: "1",
+                //Theme
+                plotBorderThickness: "0.25",
+                showxaxispercentvalues: "1",
+                showValues: "1",
+                plotToolText: "Month: $label <br> Revenue : $dataValue"
+            },
+            data: []
+          }
+        }
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Data Source Collection
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+        "data": [
+                    {
+                        label: "Feb",
+                        value: "450"
+                    },
+                    {
+                        label: "March",
+                        value: "600"
+                    },
+                    {
+                        label: "April",
+                        value: "200"
+                    },
+                    {
+                        label: "May",
+                        value: "180"
+                    },
+                    {
+                        label: "June",
+                        value: "1100"
+                    }
+                ]
+```
 
-## Learn More
+This sample static data collection need to pass in configuration setting. 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Attach the callback to an event through the React-FC component:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+ <ReactFC {...chartConfigsSettings} /> 
+```
 
-### Code Splitting
+##### Consider the example to integrate or implement fusion chart in the react app.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```javascript
+import React, {Component} from 'react';
 
-### Analyzing the Bundle Size
+// import Fusion Charts library
+import React, {Component} from 'react';
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+// import Fusion Charts library
+import FusionCharts from 'fusioncharts';
+import Charts from 'fusioncharts/fusioncharts.charts';
+import ReactFC from 'react-fusioncharts';
+import './index.css';
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 
-### Making a Progressive Web App
+// import bootstrap css
+import 'bootstrap/dist/css/bootstrap.css';
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-### Advanced Configuration
+// line chart configuration settings
+const chartConfigs_line = {
+    type: "line",
+    width: '100%',
+    height: 350,
+    dataFormat: 'json',
+    dataSource: {
+        chart: {
+            caption: "Revenue Over Time($k)",
+            palettecolors: "f2726f",
+            yaxisname: "Month",
+            xaxisname: "Revenue",
+            subcaption: "[Year 2019]",
+            numbersuffix: "k",
+            showBorder: "1",
+            borderColor: "#ccc",
+            bgColor: "#FFFFFF",
+            theme: "fusion",
+            //Tooltip customization
+            toolTipBorderColor: "#666666",
+            toolTipBgColor: "#efefef",
+            toolTipBgAlpha: "80",
+            showToolTipShadow: "1",
+            //Theme
+            plotBorderThickness: "0.25",
+            showxaxispercentvalues: "1",
+            showValues: "1",
+            plotToolText: "Month: $label <br> Revenue : $dataValue"
+        },
+        data: [
+            {
+                label: "Feb",
+                value: "450"
+            },
+            {
+                label: "March",
+                value: "600"
+            },
+            {
+                label: "April",
+                value: "200"
+            },
+            {
+                label: "May",
+                value: "180"
+            },
+            {
+                label: "June",
+                value: "1100"
+            }
+        ]
+    }
+};
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+class App extends Component {
+    render() {
+        return (
+            <div className="container">
+                <div className="row">
+                    {/*Simple Line section*/}
+                    <div className="col-sm-6">
+                        <h3>Simple Line Chart</h3>
+                        <ReactFC {...chartConfigs_line} />
+                    </div>
+                </div>
+            </div>)
+    }
+}
 
-### Deployment
+export default App;
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Licensing
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+The FusionCharts React component is open-source and distributed under the terms of the MIT/X11 License. However, you will need to download and include FusionCharts library in your page separately, which has a [separate license](https://www.fusioncharts.com/buy).
