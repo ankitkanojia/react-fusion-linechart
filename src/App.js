@@ -75,7 +75,7 @@ const chartConfigs_multiline = {
     dataSource: {
         chart: {
             caption: "Cell phones use in any town, 2015 to 2019",
-            yaxisname: "% of youth on this platform",
+            yaxisname: "Number of people",
             subcaption: "2015-2019",
             showhovereffect: "1",
             drawcrossline: "1",
